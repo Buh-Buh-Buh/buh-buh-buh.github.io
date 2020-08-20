@@ -5,10 +5,12 @@
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build",
-    "deploy": "ng deploy --base-href=/cs4641-project/",
+    "deploy": "ng deploy",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint-fix": "ng lint --fix",
+    "e2e": "ng e2e",
+    "test-full": "ng e2e"
   },
   "private": true,
   "dependencies": {
