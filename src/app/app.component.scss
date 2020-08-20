@@ -5,7 +5,18 @@
 }
 
 mat-toolbar {
+  position: fixed;
   button, div, a {
     height: 100%;
+  }
+}
+
+#header-spacer {
+  height: 64px;
+}
+
+@media (max-width: 599px) {
+  #header-spacer {
+    height: 56px;
   }
 }
