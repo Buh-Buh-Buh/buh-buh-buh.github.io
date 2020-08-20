@@ -6,14 +6,16 @@
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-      <a mat-button href="https://github.com/Buh-Buh-Buh/buh-buh-buh.github.io">Github</a>
+      <a mat-button href="https://github.com/Buh-Buh-Buh/buh-buh-buh.github.io">
+        <mat-icon>code</mat-icon>
+      </a>
   </div>
   <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
    <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
 <mat-menu x-position="before" #menu="matMenu">
-  <button mat-menu-item href="https://github.com/Buh-Buh-Buh/buh-buh-buh.github.io">Github</button>
+  <a mat-menu-item href="https://github.com/Buh-Buh-Buh/buh-buh-buh.github.io">Github</a>
   <!--<button mat-menu-item>Help</button>-->
 </mat-menu>
 <router-outlet></router-outlet>
