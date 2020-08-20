@@ -7,6 +7,14 @@ import { ProjectProposalComponent } from './components/project-proposal/project-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './components/main/main.component';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+// Material imports
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,9 +22,16 @@ import { MainComponent } from './components/main/main.component';
     MainComponent
   ],
   imports: [
+    // Core imports
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    // Material Imports
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
