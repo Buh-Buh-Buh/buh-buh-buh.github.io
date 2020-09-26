@@ -1,45 +1,54 @@
 <div fxLayout="column" fxLayoutAlign="center center" width="100%">
-  <mat-card class="mat-elevation-z5">
-    <mat-card-title>Summary</mat-card-title>
+  <mat-card class="mat-elevation-z5 info-card">
+    <!-- <mat-card-title>Summary</mat-card-title> -->
     <mat-card-content>
-      <img src="assets/images/infographic.png" width="360" height="480" class="infographic" />
+      <a href="assets/images/infographic.png">
+        <div class="infographic-container">
+          <img src="assets/images/infographic.png" class="infographic" />
+        </div>
+      </a>
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Problem Background</mat-card-title>
     <mat-card-content>
-      We want to parse the titles and content of various labelled articles to train a model to decide whether an article is fake news or not. This model could then be used on new articles to judge their validity.
+      We want to parse the titles and content of various labelled articles to train a model to decide whether an article is fake news or not. This model could then be used on new articles to judge their validity.<br>
       Today, this is done by both manual inspection and machine learning. The limits of current practice are that today’s environment often requires models to be retrained with more recent data to accurately detect fake news. Another limit is that there is little consensus on what defines fake news.
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Proposal</mat-card-title>
     <mat-card-content>
-      We want to parse the titles and content of various labelled articles to train a model to decide whether an article is fake news or not. This model could then be used on new articles to judge their validity.
-      Today, this is done by both manual inspection and machine learning. The limits of current practice are that today’s environment often requires models to be retrained with more recent data to accurately detect fake news. Another limit is that there is little consensus on what defines fake news.
-      Our approach will attempt to rate articles on a scale from fake to real (based on a confidence interval) rather than a binary decision. We also hope to create a chrome extension to make this model easily accessible to the common user.
-      All consumers of today’s news can benefit from accessing the results of this model. Giving people access to the fakeness of an article will enable people to avoid reading fake articles. This could lead to fake news sources falling out of use and improving the world’s access to real news.
+      Our approach will attempt to rate articles on a scale from fake to real (based on a confidence interval) rather than a binary decision. We also hope to create a chrome extension to make this model easily accessible to the common user.<br>
+      All consumers of today’s news can benefit from accessing the results of this model. Giving people access to the fakeness of an article will enable people to avoid reading fake articles. This could lead to fake news sources falling out of use and improving the world’s access to real news.<br>
+      One major risk that this model will face is avoiding racism/sexism when taking into account the author of an article. Another potential article is misclassifying opinion articles as fake news; this is dependent on the training data set, which we don’t have the resources to relabel.<br>
+      The time required to accomplish this task will depend on how long it takes us to test different models and train the model. We do not expect training the model to take that much time.
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Methods</mat-card-title>
     <mat-card-content>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum ab autem culpa ex sequi, atque provident accusantium quas velit quaerat quos minima dignissimos officia reprehenderit libero! Nemo sint repellendus necessitatibus?
+      Machine Learning!<br>
+      Current ideas: unsupervised clustering, convolutional neural networks, word embeddings
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
-    <mat-card-title>Results</mat-card-title>
+    <mat-card-title>Expected Results</mat-card-title>
     <mat-card-content>
-      One major risk that this model will face is avoiding racism/sexism when taking into account the author of an article. Another potential article is misclassifying opinion articles as fake news; this is dependent on the training data set, which we don’t have the resources to relabel.
-      The time required to accomplish this task will depend on how long it takes us to test different models and train the model. We do not expect training the model to take that much time.
-      Midterm: The existence of some model (not necessarily the final model) that can parse some input data, and perform unsupervised clustering.
-      Final: Accuracy of fake-news news detection on recent news articles.
+      The midterm evaluation will be on the existence of some model (not necessarily the final model) that can parse some input data, and perform unsupervised clustering.<br>
+      The final evaluation will be on the accuracy of fake-news news detection on recent news articles.
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-elevation-z5">
+    <mat-card-title>Discussion</mat-card-title>
+    <mat-card-content>
+      None yet!
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>References</mat-card-title>
     <mat-card-content>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum ab autem culpa ex sequi, atque provident accusantium quas velit quaerat quos minima dignissimos officia reprehenderit libero! Nemo sint repellendus necessitatibus?
+      Dataset: <a href="https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset/discussion">Kaggle - Fake/Real News Dataset</a>
     </mat-card-content>
   </mat-card>
 </div>
