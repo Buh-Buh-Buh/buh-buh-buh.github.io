@@ -2,3 +2,16 @@ mat-card {
   width: 80%;
   margin: 20px;
 }
+
+.info-card {
+  max-width: 720px;
+}
+
+.infographic-container {
+  max-width: 100%;
+
+  >.infographic {
+    object-fit: contain;
+    max-width: 100%;
+  }
+}
