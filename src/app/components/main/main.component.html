@@ -1,7 +1,3 @@
-<ng-template #citation let-ref='ref'>
-  <a href="ref{{ref}}"><sup>{{ref}}</sup></a>
-</ng-template>
-
 <div fxLayout="column" fxLayoutAlign="center center" width="100%" class="main">
   <mat-card class="mat-elevation-z5 info-card">
     <mat-card-content fxLayout="row wrap" fxLayoutAlign="center center">
@@ -37,8 +33,12 @@
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Proposal</mat-card-title>
     <mat-card-content>
-      We want to parse the titles and content of various labelled articles to train a model to decide whether an article contains fake news or not. This model could then be used on new articles to judge their validity.<br>
-      Our approach will attempt to rate articles on a scale from fake to real (based on a confidence interval) rather than a binary decision. We also hope to create a chrome extension to make this model easily accessible to the common user.<br>
+      We want to parse the titles and content of various labelled articles to train a model to decide whether an article contains fake news or not. This model could then be used on new articles to judge their validity.
+      Our algorithm will create features based on different factors like whether or not the headline of the article is all capitalized, whether there are a lot of question and exclamation marks in the body, etc.
+      These may help the model find trends based on those features, but we plan on testing models with and without these features to determine if they provide a real benefit or cause overfitting.
+      Our approach will attempt to rate articles on a scale from fake to real (based on a confidence interval) rather than a binary decision.
+      Having a continuous scale will help people make their own final judgement based on how poorly/well an article is rated when run through the trained model. This may also help avoid the generalization of fake news as many people have differing opinions on what is fake news.
+      We also hope to create a chrome extension to make this model easily accessible to the common user.<br>
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
@@ -62,9 +62,11 @@
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Expected Results</mat-card-title>
     <mat-card-content>
-      The midterm evaluation will be based on the existence of some model (not necessarily the final model) that can parse some input data, and perform unsupervised clustering.<br>
-      The final evaluation will be on the accuracy of fake-news news detection on recent news articles and the comparison/learnings from the different models and methods we tried.<br>
-      If time permits, we hope to have a functioning Google Chrome extension that will give users a rating (on a scale) of the accuracy of the articles they are reading.
+      The midterm evaluation will be based on the existence of some model (not necessarily the final model) that can parse some input data, and perform unsupervised clustering.
+      The parsing of the input data will be based on some NLP model such as bag of words or word embedding to help best store key features of the dataset.
+      We plan on using the clustering results to guide our feature selection during the supervised learning phases of the project.<br>
+      The final evaluation will be on the accuracy of fake-news news detection on recent news articles. We also plan to compare the results of the learnings from the different models and methods we try.<br>
+      If time permits, we hope to have a functioning Google Chrome extension that will allow users to obtain a rating (on a scale) of the accuracy of an article they are currently reading.
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
