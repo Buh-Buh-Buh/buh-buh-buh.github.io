@@ -12,7 +12,7 @@
     <mat-card-title>Problem Background</mat-card-title>
     <mat-card-content>
       With the explosion of media outlets through the internet and social media, fake news has become an increasingly pervasive issue in today's global climate in all fields from politics to science.
-      A study conducted in 2016, a large majority of Americans (64%) felt that made-up news has caused a great deal of confusion about basic facts of current events. That number jumps to 89% for causing just some confusion.<span [innerHTML]="cite('Barthel')"></span>
+      In a study conducted in 2016, a large majority of Americans (64%) felt that made-up news has caused a great deal of confusion about basic facts of current events. That percentage jumps to 89% when considering a slight confusion on current events.<span [innerHTML]="cite('Barthel')"></span>
       More recently with respect to the literal and information pandemic of SARS-CoV-2 (COVID-19), 64% of Americans thought that the CDC is trustworthy while only 30% say the same about Trump and his administration.<span [innerHTML]="cite('Mitchell')"></span>
       The issues of fake news have also affected the political climate. The election of 2016 was largely influenced by widespread misinformation from various social media platforms.<span [innerHTML]="cite('Aldwairi')"></span>
       Without a widely accepted and trustable source of information, fake news can wreak havoc on public knowledge and opinion with 38% of Americans finding it harder to identify what is true and false. <span [innerHTML]="cite('Mitchell')"></span>
@@ -34,7 +34,7 @@
     <mat-card-title>Proposal</mat-card-title>
     <mat-card-content>
       We want to parse the titles and content of various labelled articles to train a model to decide whether an article contains fake news or not. This model could then be used on new articles to judge their validity.
-      Our algorithm will create features based on different factors like whether or not the headline of the article is all capitalized, whether there are a lot of question and exclamation marks in the body, etc.
+      Our algorithm will create features based on different factors like whether or not the headline of the article is all capitalized, whether there are a lot of question and exclamation marks in the body, etc because this approach has been successful in the past.<span [innerHTML]="cite('Aldwairi')"></span>
       These may help the model find trends based on those features, but we plan on testing models with and without these features to determine if they provide a real benefit or cause overfitting.
       Our approach will attempt to rate articles on a scale from fake to real (based on a confidence interval) rather than a binary decision.
       Having a continuous scale will help people make their own final judgement based on how poorly/well an article is rated when run through the trained model. This may also help avoid the generalization of fake news as many people have differing opinions on what is fake news.
@@ -45,11 +45,11 @@
     <mat-card-title>Methods</mat-card-title>
     <mat-card-content fxLayout="column" fxLayoutAlign="center start">
       <p>
-        To clean our data, we plan on preprocessing the input data to remove various punctuations, which affect the performance of some text analysis algorithms. Based on the success of a similar projct in 2018,<span [innerHTML]="cite('Aldwairi')"></span> we also plan on creating features for our models to train with.
+        To clean our data, we plan on preprocessing the input data to remove various punctuations, which affect the performance of some text analysis algorithms. Based on the success (99.4% accuracy) of a similar projct in 2018,<span [innerHTML]="cite('Aldwairi')"></span> we also plan on creating new features for our models to train with.
         These features may include various properties about the article titles, such as all caps, containing many ? and ! marks, and text-title keyword matching.
         Since it has been successfully utilized in the past,<span [innerHTML]="cite('Conroy')"></span><span [innerHTML]="cite('Zhou')"></span> we will use bag-of-words and vectorization to create features based on the text. We will then use PCA to determine what features will be the most relevant for the algorithms.
-        Soft-assignment clustering can then be used to find correlation between clusters of words/other features. We can then check if these clusters follow similar boundaries as fake/real news.
-        We then plan to train supervised models based on the most relevant features to detect fake news. In the past, people have used CNNs to detect false sentences,<span [innerHTML]="cite('Barthel')"></span> so we hope to use them once we reach the supervised learning stage.
+        Soft-assignment clustering can then be used to find correlation between clusters of words/other features. We can then check if these clusters follow similar boundaries as fake/real news. We plan to explore various forms of clustering, including expectation-maximization, hierarchical clustering, and k-means.
+        We then plan to train supervised models based on the most relevant features to detect fake news. In the past, people have used CNNs to detect false sentences,<span [innerHTML]="cite('Barthel')"></span> so we hope to use them once we reach the supervised learning stage. We also plan on comparing the results with support-vector machine and bidirectional long/short-term memory models.
         Once we have trained a model, we hope to browserify the code, so it can be used in a chrome extension.
       </p>
       <a href="assets/images/data-diagram.png" fxFlexAlign="center" style="margin-top: 1em;">
@@ -93,7 +93,7 @@
       <mat-card-title class="mt-2">Costs</mat-card-title>
       <p>
         In terms of monetary cost, we do not believe that any significant funding will be needed with our current hardware available and the relatively low cost and availability of cloud computing.
-        Regarding time, we believe it will mostly depend on how long it takes us to test different models and train the model as we do not expect training the model to take that much time with current cloud computing capabilities and hardware.
+        Regarding time, we believe it will mostly depend on how long it takes us to test different models and train the model as we do not expect training the model to take that much time with current cloud computing capabilities and hardware. We are also using free, labelled datasets, so the main data-related time costs would be finding more datasets if necessary.
       </p>
     </mat-card-content>
   </mat-card>
