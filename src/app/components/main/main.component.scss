@@ -1,6 +1,9 @@
 mat-card {
-  width: 80%;
   margin: 20px;
+  width: 80%;
+  @media only screen and (min-width: 992px) {
+    width: 60%;
+  }
 }
 
 .info-card {
@@ -14,4 +17,24 @@ mat-card {
     object-fit: contain;
     max-width: 100%;
   }
+}
+
+.main mat-card-content {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.bib {
+  list-style-type: none;
+
+}
+
+.bib li {
+  --indent: 2em;
+  padding-left: var(--indent);
+  text-indent: calc(-1*var(--indent));
+}
+
+.mt-2 {
+  margin-top: 2em !important;
 }
