@@ -1,7 +1,10 @@
-<div fxLayout="column" fxLayoutAlign="center center" width="100%">
+<ng-template #citation let-ref='ref'>
+  <a href="ref{{ref}}"><sup>{{ref}}</sup></a>
+</ng-template>
+
+<div fxLayout="column" fxLayoutAlign="center center" width="100%" class="main">
   <mat-card class="mat-elevation-z5 info-card">
-    <!-- <mat-card-title>Summary</mat-card-title> -->
-    <mat-card-content>
+    <mat-card-content fxLayout="row wrap" fxLayoutAlign="center center">
       <a href="assets/images/infographic.png">
         <div class="infographic-container">
           <img src="assets/images/infographic.png" class="infographic" />
@@ -12,43 +15,97 @@
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Problem Background</mat-card-title>
     <mat-card-content>
-      We want to parse the titles and content of various labelled articles to train a model to decide whether an article is fake news or not. This model could then be used on new articles to judge their validity.<br>
-      Today, this is done by both manual inspection and machine learning. The limits of current practice are that today’s environment often requires models to be retrained with more recent data to accurately detect fake news. Another limit is that there is little consensus on what defines fake news.
+      With the explosion of media outlets through the internet and social media, fake news has become an increasingly pervasive issue in today's global climate in all fields from politics to science.
+      A study conducted in 2016, a large majority of Americans (64%) felt that made-up news has caused a great deal of confusion about basic facts of current events. That number jumps to 89% for causing just some confusion.<span [innerHTML]="cite('Barthel')"></span>
+      More recently with respect to the literal and information pandemic of SARS-CoV-2 (COVID-19), 64% of Americans thought that the CDC is trustworthy while only 30% say the same about Trump and his administration.<span [innerHTML]="cite('Mitchell')"></span>
+      The issues of fake news have also affected the political climate. The election of 2016 was largely influenced by widespread misinformation from various social media platforms.<span [innerHTML]="cite('Aldwairi')"></span>
+      Without a widely accepted and trustable source of information, fake news can wreak havoc on public knowledge and opinion with 38% of Americans finding it harder to identify what is true and false. <span [innerHTML]="cite('Mitchell')"></span>
+      Additionally, studies have shown that humans are surpisingly bad at detecting lies in text. According to a meta-analysis of more than 200 experiments, humans are just 4% better than random chance at detecting fake news.<span [innerHTML]="cite('Conroy')"></span>
+      With fake news becoming such an important and critical issue to the health and safety of the public and in all facets of life, we wish to take a stab at allieviating and reducing some of the negative impacts of fake news. <br>
+
+      The fake news or "deception detection" problem is not new to the machine learning or natural language processing community. As early as 2011, people were already attempting to detect fake news or deception in review opinions.<span [innerHTML]="cite('Wang')"></span>
+      Since then, stylometric, semi-supervised learning, and linguistic approaches have been used to detect deceptive text on crowdsource-generated datasets.<span [innerHTML]="cite('Wang')"></span>
+      However, prior to 2017, most machine learning methods at detecting fake news and statements were limited by the lack of a large amount of labelled data (less than 300 statements) and the lack of real world data (as the data available was artificially crowdgenerated). <span [innerHTML]="cite('Wang')"></span>
+      A study in 2017 presents a dataset called "Liar" with over 12 thousand real world statements manually labeled for its accuracy. On the larger dataset, they were able to train a majority model, support vector machine classifier (SVM), bi-directional long short-term memory network (Bi-LSTM), and convolutional neural network (CNN) with varying success. <span [innerHTML]="cite('Wang')"></span>
+      Additionally, they created a Hybrid CNN that considered both the text of the statement and metadata about the statement (i.e. subject, author, author's job/state/party, context, etc). <span [innerHTML]="cite('Wang')"></span>
+      Historically, linguistic and network approaches to the fake news problem have been very successful.<span [innerHTML]="cite('Conroy')"></span> <br>
+
+      However, the limits of current practices today are that today’s environment often requires models to be retrained with more recent data to accurately detect fake news. Another limit is that there is little consensus on what defines fake news.
+      For example, it may be hard to say if a strongly opinionated article or a satirical article is considered "fake".
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Proposal</mat-card-title>
     <mat-card-content>
+      We want to parse the titles and content of various labelled articles to train a model to decide whether an article contains fake news or not. This model could then be used on new articles to judge their validity.<br>
       Our approach will attempt to rate articles on a scale from fake to real (based on a confidence interval) rather than a binary decision. We also hope to create a chrome extension to make this model easily accessible to the common user.<br>
-      All consumers of today’s news can benefit from accessing the results of this model. Giving people access to the fakeness of an article will enable people to avoid reading fake articles. This could lead to fake news sources falling out of use and improving the world’s access to real news.<br>
-      One major risk that this model will face is avoiding racism/sexism when taking into account the author of an article. Another potential article is misclassifying opinion articles as fake news; this is dependent on the training data set, which we don’t have the resources to relabel.<br>
-      The time required to accomplish this task will depend on how long it takes us to test different models and train the model. We do not expect training the model to take that much time.
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Methods</mat-card-title>
-    <mat-card-content>
-      Machine Learning!<br>
-      Current ideas: unsupervised clustering, convolutional neural networks, word embeddings
+    <mat-card-content fxLayout="column" fxLayoutAlign="center start">
+      <p>
+        To clean our data, we plan on preprocessing the input data to remove various punctuations, which affect the performance of some text analysis algorithms. Based on the success of a similar projct in 2018,<span [innerHTML]="cite('Aldwairi')"></span> we also plan on creating features for our models to train with.
+        These features may include various properties about the article titles, such as all caps, containing many ? and ! marks, and text-title keyword matching.
+        Since it has been successfully utilized in the past,<span [innerHTML]="cite('Conroy')"></span><span [innerHTML]="cite('Zhou')"></span> we will use bag-of-words and vectorization to create features based on the text. We will then use PCA to determine what features will be the most relevant for the algorithms.
+        Soft-assignment clustering can then be used to find correlation between clusters of words/other features. We can then check if these clusters follow similar boundaries as fake/real news.
+        We then plan to train supervised models based on the most relevant features to detect fake news. In the past, people have used CNNs to detect false sentences,<span [innerHTML]="cite('Barthel')"></span> so we hope to use them once we reach the supervised learning stage.
+        Once we have trained a model, we hope to browserify the code, so it can be used in a chrome extension.
+      </p>
+      <a href="assets/images/data-diagram.png" fxFlexAlign="center" style="margin-top: 1em;">
+        <div class="infographic-container mat-elevation-z2 mat-pt-5">
+          <img src="assets/images/data-diagram.png" class="infographic" />
+        </div>
+      </a>
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Expected Results</mat-card-title>
     <mat-card-content>
-      The midterm evaluation will be on the existence of some model (not necessarily the final model) that can parse some input data, and perform unsupervised clustering.<br>
-      The final evaluation will be on the accuracy of fake-news news detection on recent news articles.
+      The midterm evaluation will be based on the existence of some model (not necessarily the final model) that can parse some input data, and perform unsupervised clustering.<br>
+      The final evaluation will be on the accuracy of fake-news news detection on recent news articles and the comparison/learnings from the different models and methods we tried.<br>
+      If time permits, we hope to have a functioning Google Chrome extension that will give users a rating (on a scale) of the accuracy of the articles they are reading.
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Discussion</mat-card-title>
     <mat-card-content>
-      None yet!
+      <p>
+        The outcome we hope to achieve is one where our model is able to accurately and reliabily detect the validity of the news articles as they are released in real-time.
+        We hope that our project will be able to benefit people all around the world who are affected by the fake news that plagues our internet and media consumption today.
+        We believe that knowing the validity (or at least, a general idea of the validity) of articles on the internet will greatly affect the
+        quality of the knowledge people gain each day about the state of the world we live in, which we believe is very important, especially in today's climate.
+        Additionally, we believe a Google Chrome extension would be critical in increasing the utility and reach of our model as it would allow users to convieniently get an idea of how fake
+        the current articles they have pulled up are. We believe that even if our model is not perfectly accurate, the presence of such an extension in an individual's browser would encourage them
+        to think skeptically about the information they are taking in, promoting the spread of critical thinking and discouraging the spread of additional fake information.
+        Our hope is that our project will be a step towards lessening the spread of misinformation in our media today.
+      </p>
+
+      <mat-card-title class="mt-2">Risks</mat-card-title>
+      <p>
+        We have identified that there may be issues with racism/sexism when taking into account the author of an article in addition to misclassifying true articles as fake news or vice versa.
+        We have realized that the success of our model and project is largely dependent on the quality of the labelled data set. Whether or not the data set is large enough, varied enough, representative of real
+        world articles, and correctly labelled will be a critical determining factor in the performance of our model in evaluating real world articles outside of the labelled training data set.
+      </p>
+
+      <mat-card-title class="mt-2">Costs</mat-card-title>
+      <p>
+        In terms of monetary cost, we do not believe that any significant funding will be needed with our current hardware available and the relatively low cost and availability of cloud computing.
+        Regarding time, we believe it will mostly depend on how long it takes us to test different models and train the model as we do not expect training the model to take that much time with current cloud computing capabilities and hardware.
+      </p>
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>References</mat-card-title>
     <mat-card-content>
-      Dataset: <a href="https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset/discussion">Kaggle - Fake/Real News Dataset</a>
+      <ul class="bib" ng-model="bibliography">
+        <li>
+          Dataset: <a href="https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset/discussion">Kaggle - Fake/Real News Dataset</a>
+        </li>
+        <li *ngFor="let reference of references; let i = index" [attr.data-index]="i">
+          <a href={{reference.link}} id="ref{{i+1}}">[{{i+1}}]</a> {{reference.text}}
+        <li>
+      </ul>
     </mat-card-content>
   </mat-card>
 </div>
