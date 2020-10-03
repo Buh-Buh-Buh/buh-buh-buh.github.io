@@ -14,15 +14,15 @@
       With the explosion of online media outlets, fake news has become an increasingly pervasive issue in today's global climate to the point where
       widespread misinformation on social media largely influenced the 2016 election.<span [innerHTML]="cite('Aldwairi')"></span>
       In a 2016 study, 64% of Americans felt that made-up news has caused a great deal of confusion about basic facts of current events.<span [innerHTML]="cite('Barthel')"></span>
-      The problem is only getting worse with 38% of Americans finding it harder to identify what is true and false. <span [innerHTML]="cite('Mitchell')"></span>
-      The misinformation problem is exacerbated by the fact that humans are surprisingly bad at detecting lies in text—we are only 4% better than random chance at detecting fake news!<span [innerHTML]="cite('Conroy')"></span>
-      With fake news becoming such an important and critical issue to the health and safety of the public and in all facets of life, we wish to take a stab at alleviating and reducing some of the negative impacts of fake news. <br>
+      The problem is only getting worse with 38% of Americans finding it harder to identify what is true or false.<span [innerHTML]="cite('Mitchell')"></span>
+      Humans are surprisingly bad at detecting lies in text—we are only 4% better than random chance at detecting fake news!<span [innerHTML]="cite('Conroy')"></span>
+      With fake news becoming such an important and critical issue to the health and safety of the public and in all facets of life, we wish to take a stab at alleviating and reducing some of the negative impacts of fake news.<br>
 
       The fake news or "deception detection" problem is not new to the natural language processing community. As early as 2011, people were already attempting to detect fake news or deception in review opinions.<span [innerHTML]="cite('Wang')"></span>
       Since then, stylometric, semi-supervised learning, and linguistic approaches have been used to detect deceptive text on crowdsource-generated datasets<span [innerHTML]="cite('Wang')"></span>
-      with linguistic and network approaches being the most successful. <span [innerHTML]="cite('Conroy')"></span>
-      However, prior to 2017, most machine learning approaches were limited by the lack of a large amount of labeled real world data as the best existing data at the time was small and crowd generated. <span [innerHTML]="cite('Wang')"></span>
-      With better data in recent years, people have used majority models, support vector machine classifiers (SVM), bi-directional long short-term memory networks (Bi-LSTM), and convolutional neural networks (CNN) with varying success. <span [innerHTML]="cite('Wang')"></span>
+      with linguistic and network approaches being the most successful.<span [innerHTML]="cite('Conroy')"></span>
+      However, prior to 2017, most machine learning approaches were limited by the lack of a large amount of labeled real world data as the best existing data at the time was small and crowd generated.<span [innerHTML]="cite('Wang')"></span>
+      With better data in recent years, people have used majority models, support vector machine classifiers (SVM), bi-directional long short-term memory networks (Bi-LSTM), and convolutional neural networks (CNN) with varying success.<span [innerHTML]="cite('Wang')"></span>
       <br>
 
       However, current models and practices are limited in that they need to be retrained over time with more recent data to accurately detect fake news as reporting styles change over time.
@@ -53,11 +53,9 @@
         Since it has been successfully utilized in the past,<span [innerHTML]="cite('Conroy')"></span><span [innerHTML]="cite('Zhou')"></span>
         we will use bag-of-words and vectorization to create features based on the text.
         We will then use PCA to determine what features will be the most relevant for the algorithms.
-        Soft-assignment clustering can then be used to find correlation between clusters of words/other features.
-        We will then check if these clusters follow similar boundaries as fake/real news.
-        We plan to explore various forms of clustering, including expectation-maximization, hierarchical clustering, and k-means. We will measure performance based on the best F-measure/F1-score and accuracy.
+        We plan to explore various forms of clustering, including expectation-maximization, hierarchical clustering, and k-means to find correlation between clusters of words/other features. We will measure performance based on the best F-measure/F1-score and accuracy.
         We then plan to train supervised models based on the most relevant features to detect fake news.
-        For supervised learning, we plan on exploring CNNs, SVMs, and LSTMs
+        For supervised learning, we plan on exploring CNNs, SVMs, and LSTMs.
       </p>
       <a href="assets/images/data-diagram.png" fxFlexAlign="center" style="margin-top: 1em;">
         <div class="infographic-container mat-elevation-z2 mat-pt-5">
@@ -69,10 +67,10 @@
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Expected Results</mat-card-title>
     <mat-card-content>
-      The midterm evaluation will be based on the existence of some preliminary model that can parse some input data and perform unsupervised clustering.
+      The midterm evaluation will be based on the existence of an unsupervised clustering model.
       The parsing of the input data will be based on some NLP model such as bag of words or word embedding to help best store key features of the dataset.
       We plan on using the clustering results to guide our feature selection during the supervised learning phases of the project.<br>
-      The final evaluation will be on the accuracy of fake news detection on recent news articles. We also plan to compare the results of the learnings from the different models and methods we try.<br>
+      The final evaluation will be on the accuracy of fake news detection on recent news articles. We plan to compare the results of the learnings from the different models and methods we try.<br>
       If time permits, we hope to have a functioning Google Chrome extension that will allow users to obtain a rating (on a scale) of the accuracy of an article they are currently reading.
     </mat-card-content>
   </mat-card>
