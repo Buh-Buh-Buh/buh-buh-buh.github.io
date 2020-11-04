@@ -87,6 +87,8 @@
         When doing LSA, the number of components is very important as more components can lead to more relevant and specific learning but can also lead to overfitting. On the contrary, less components can lead to better generalization outside of the training set.
         Based on a meta-studies of many natural language processing studies utilizing LSA, there is a "island of stability" of around 300 to 500 components with 300 components being a good choice for around thousands to tens of thousands of documents and 400 for millions of documents. <span [innerHTML]="cite('Bradford')"></span>
         Thus, based on the literature, we decided to explore LSA with around 300 components, trying values from 100-500 in systematic intervals; however, the variance recovered was always relatively low (around 15 - 30%). This may be due to the fact that bag of words and TF-IDF generates datasets with such large dimensionality.
+        After performing LSA on our dataset, we analyzed the first few principal components to see which features contained the most variance in our dataset. Words such as "trump", "clinton", "senate", "house", "left", "news", and "korea" showed up frequently in the first few components after LSA, showing the political nature of our dataset.
+
       </p>
       <p>
         After performing LSA, we attempted various types of clustering on our reduced dimensionality dataset.
@@ -118,8 +120,13 @@
       <mat-card-title>Supervised Learning</mat-card-title>
       <p>
         Since our unsupervised clustering performed poorly, we decided to take some early strides into supervised learning.
-        Utilizing TensorFlow, we created a 3 layered neural network with 16 nodes each, trained across 5 epochs.
-        Splitting the data into 2/3 training and 1/3 validation with our bag of words representation, we were able to get a validation accuracy of 97.87%, showing promising results for further supervised learning methods.
+        The supervised model works by first preprocessing the data using TF-IDF. This is done by using a Keras Preprocessing library called Token.
+        In essence, the Tokenizer takes the entire data sets of body paragraphs and creates a vocabulary of every word based on the inverse of the frequency.
+        Then, once this dictionary is generated it can tokenize any string by replacing each string with a number based on how common it was in the initial entire data set.<br>
+
+        From there we this matrix along with its labels of 0’s or 1’s into a three-layer neural net with 16 nodes each.
+        We decided to use a sigmoid function to represent the outputs since we believe grading the likelihood that a new article is fake should be continuous function rather than a discrete number being either 0 or 1.
+        We ran on 5 epochs as this was the amount of training time that maximized the validation accuracy. With this method we were able to achieve around 98.4% accuracy on the validation set.
       </p>
       <a href="assets/images/nn-accuracy-vs-epochs.png" fxFlexAlign="center" style="margin: 1em 0;">
         <div class="infographic-container mat-elevation-z2">
