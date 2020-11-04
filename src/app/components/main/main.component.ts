@@ -36,7 +36,11 @@ export class MainComponent implements OnInit {
     },
     {
       link : "https://dl.acm.org/doi/abs/10.1145/3289600.3291382",
-      text : "Zhou, Xinyi, et al. “Fake News: Fundamental Theories, Detection Strategies and Challenges.” Proceedings of the Twelfth ACM International Conference on Web Search and Data Mining, 2019, doi:10.1145 /3289600.3291382."
+      text : "Zhou, Xinyi, et al. (2019) \"Fake News: Fundamental Theories, Detection Strategies and Challenges.\" Proceedings of the Twelfth ACM International Conference on Web Search and Data Mining. doi:10.1145/3289600.3291382."
+    },
+    {
+      link : "https://dl.acm.org/doi/10.1145/1458082.1458105",
+      text : "Bradford, R. B. (2008). An empirical study of required dimensionality for large-scale latent semantic indexing applications. Proceeding of the 17th ACM Conference on Information and Knowledge Mining - CIKM '08. doi:10.1145/1458082.1458105"
     }
   ];
 

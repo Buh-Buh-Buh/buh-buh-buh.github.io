@@ -45,6 +45,7 @@
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Methods</mat-card-title>
     <mat-card-content fxLayout="column" fxLayoutAlign="center start">
+      <mat-card-title>Initially Planned Methodology</mat-card-title>
       <p>
         To clean our data, we plan on preprocessing the input data to remove various punctuations, which affect the performance of some text analysis algorithms.
         Based on the success (99.4% accuracy) of a similar project in 2018,<span [innerHTML]="cite('Aldwairi')"></span> we also plan on feature engineering new features for our models to train with.
@@ -57,26 +58,102 @@
         We then plan to train supervised models based on the most relevant features to detect fake news.
         For supervised learning, we plan on exploring CNNs, SVMs, and LSTMs.
       </p>
-      <a href="assets/images/data-diagram.png" fxFlexAlign="center" style="margin-top: 1em;">
-        <div class="infographic-container mat-elevation-z2 mat-pt-5">
-          <img src="assets/images/data-diagram.png" class="infographic" />
+      <a href="assets/images/data-diagram.png" fxFlexAlign="center" style="margin: 1em 0;">
+        <div class="infographic-container mat-elevation-z2">
+          <img src="assets/images/data-diagram.png" class="infographic" height="491" width="834" />
+        </div>
+      </a>
+      <mat-card-title>Data Preprocessing and Representation</mat-card-title>
+      <p>
+        To clean our data, we removed all numbers and hyperlinks, which almost halved our feature space. This will be extremely helpful for the efficiency of training and the accuracy for all of our models.
+        We also removed all English stop words (which are common words that don't have a significant contribution to the meaning of an article).<br>
+        By using a TF-IDF vectorization, a variation of bag-of-words, we were able to account for the information gain from each word in the article. We dropped all features that appeared less than 5 times in the entire training dataset because they don't contribute meaning to the articles.
+        The use of TF-IDF also helped us remove all punctuations.
+      </p>
+      <mat-card-title>Unsupervised Learning</mat-card-title>
+      <p>
+        In order to reduce the dimensionality of our data, we performed Latent Semantic Analysis (LSA) on our dataset.
+        We used LSA (also known as truncated SVD) instead of Principal Component Analysis (PCA) because of two main reasons:
+      </p>
+      <ol style="margin-top: 0;">
+        <li>
+          LSA has been known to perform well in natural language processing (NLP) applications, performing especially well on sparse datasets, like our bag of words and TF-IDF vectorization as it does not center the data like PCA.
+        </li>
+        <li>
+          With the size of our dataset, speed matters and LSA is significantly faster than doing a full PCA.
+        </li>
+      </ol>
+      <p>
+        When doing LSA, the number of components is very important as more components can lead to more relevant and specific learning but can also lead to overfitting. On the contrary, less components can lead to better generalization outside of the training set.
+        Based on a meta-studies of many natural language processing studies utilizing LSA, there is a "island of stability" of around 300 to 500 components with 300 components being a good choice for around thousands to tens of thousands of documents and 400 for millions of documents. <span [innerHTML]="cite('Bradford')"></span>
+        Thus, based on the literature, we decided to explore LSA with around 300 components, trying values from 100-500 in systematic intervals; however, the variance recovered was always relatively low (around 15 - 30%). This may be due to the fact that bag of words and TF-IDF generates datasets with such large dimensionality.
+      </p>
+      <p>
+        After performing LSA, we attempted various types of clustering on our reduced dimensionality dataset.
+        We tried:
+      </p>
+      <ul style="margin-top: 0;">
+        <li> K-Means clustering </li>
+        <li> Gaussian Mixture Models (GMM) </li>
+        <li> DBSCAN </li>
+      </ul>
+      <p>
+        Utilizing the elbow method for determining the optimal amount of clusters for K-Means and GMM, our clustering results turned out to be very poor with K-means with as much as 100 clusters only having a homogeneity score of 0.45 relative to the ground truth.
+        Evaluating other clustering metrics such as the F-1 score and accuracy relative to the ground truth also showed similar results and conclusions of poor clustering performance.
+        We believe that the poor clustering result is largely due to the fact that there are so many features (even after LSA) with a high degree of overlap between true and false articles.
+        Additionally, when we tried DBSCAN, with our large dataset, we ran into memory errors on Colab even when we reduced the feature space even more and tried different, more memory-efficienct DBSCAN algorithms.
+      </p>
+      <div fxLayout="row" fxLayoutAlign="space-around" fxFlexAlign="center">
+        <a href="assets/images/kmeans-loss.png" fxFlexAlign="center" style="margin: 1em 0; width: 32%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/kmeans-loss.png" class="infographic"/>
+          </div>
+        </a>
+        <a href="assets/images/gmm-clustering.png" fxFlexAlign="center" style="margin: 1em 0; width: 60%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/gmm-clustering.png" class="infographic"/>
+          </div>
+        </a>
+      </div>
+      <mat-card-title>Supervised Learning</mat-card-title>
+      <p>
+        Since our unsupervised clustering performed poorly, we decided to take some early strides into supervised learning.
+        Utilizing TensorFlow, we created a 3 layered neural network with 16 nodes each, trained across 5 epochs.
+        Splitting the data into 2/3 training and 1/3 validation with our bag of words representation, we were able to get a validation accuracy of 97.87%, showing promising results for further supervised learning methods.
+      </p>
+      <a href="assets/images/nn-accuracy-vs-epochs.png" fxFlexAlign="center" style="margin: 1em 0;">
+        <div class="infographic-container mat-elevation-z2">
+          <img src="assets/images/nn-accuracy-vs-epochs.png" class="infographic"/>
         </div>
       </a>
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
-    <mat-card-title>Expected Results</mat-card-title>
+    <mat-card-title>Results</mat-card-title>
     <mat-card-content>
-      The midterm evaluation will be based on the existence of an unsupervised clustering model.
-      The parsing of the input data will be based on some NLP model such as bag of words or word embedding to help best store key features of the dataset.
-      We plan on using the clustering results to guide our feature selection during the supervised learning phases of the project.<br>
-      The final evaluation will be on the accuracy of fake news detection on recent news articles. We plan to compare the results of the learnings from the different models and methods we try.<br>
-      If time permits, we hope to have a functioning Google Chrome extension that will allow users to obtain a rating (on a scale) of the accuracy of an article they are currently reading.
+      <mat-card-title>Initially Expected Results</mat-card-title>
+      <p>
+        The midterm evaluation will be based on the existence of an unsupervised clustering model.
+        The parsing of the input data will be based on some NLP model such as bag of words or word embedding to help best store key features of the dataset.
+        We plan on using the clustering results to guide our feature selection during the supervised learning phases of the project.<br>
+        The final evaluation will be on the accuracy of fake news detection on recent news articles. We plan to compare the results of the learnings from the different models and methods we try.<br>
+        If time permits, we hope to have a functioning Google Chrome extension that will allow users to obtain a rating (on a scale) of the accuracy of an article they are currently reading.
+      </p>
+      <mat-card-title class="mt-2">Midterm Results</mat-card-title>
+      <p>
+        At the time of the midterm, we have successfully cleaned and pre-processed our data, choosing a bag of words and TF-IDF vectorization of our articles to represent our data.
+        We have sucessfully utilized LSA, a popular dimensionality reduction method for NLP applications, to reduce the dimensionality of our dataset from tens of thousands to a few hundred.
+        Given this, we have tried various unsupervised clustering approaches such as K-Means, GMM, and DBSCAN with varying amounts of success, however we expect to see better results with supervised training given the nature of our NLP application.
+        With some early strides into utilizing supervised learning, we were able to train a 3 layered dense neural network over 5 epochs to achieve an impressive accuracy of over 97%.<br>
+        After the midterm, we plan on exploring more supervised learning methods such as support vector machine (SVM) and decision trees in addition to improving on our neural network model by fine tuning the hyperparameters.
+        With a good accuracy, we hope to create a Google Chrome extention to give end-users easy access to the fake-news detection ability of our model as previously discussed.
+      </p>
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
     <mat-card-title>Discussion</mat-card-title>
     <mat-card-content>
+      <mat-card-title>Initial Goals</mat-card-title>
       <p>
         The outcome we hope to achieve is one where our model is able to accurately and reliabily detect the validity of the news articles as they are released in real-time.
         We hope that our project will be able to benefit people all around the world who are affected by the fake news that plagues our internet and media consumption today.
@@ -88,14 +165,14 @@
         Our hope is that our project will be a step towards lessening the spread of misinformation in our media today.
       </p>
 
-      <mat-card-title class="mt-2">Risks</mat-card-title>
+      <mat-card-title class="mt-2">Planned Risks</mat-card-title>
       <p>
         We have identified that there may be issues with racism/sexism when taking into account the author of an article in addition to misclassifying true articles as fake news or vice versa.
         We have realized that the success of our model and project is largely dependent on the quality of the labeled data set. Whether or not the data set is large enough, varied enough, representative of real
         world articles, and correctly labeled will be a critical determining factor in the performance of our model in evaluating real world articles outside of the labeled training data set.
       </p>
 
-      <mat-card-title class="mt-2">Costs</mat-card-title>
+      <mat-card-title class="mt-2">Planned Costs</mat-card-title>
       <p>
         In terms of monetary cost, we do not believe that any significant funding will be needed with our current hardware available and the relatively low cost and availability of cloud computing.
         Regarding time, we believe it will mostly depend on how long it takes us to test different models and train the model as we do not expect training the model to take that much time with current cloud computing capabilities and hardware. We are also using free, labeled datasets, so the main data-related time costs would be finding more datasets if necessary.
