@@ -87,10 +87,35 @@
         When doing LSA, the number of components is very important as more components can lead to more relevant and specific learning but can also lead to overfitting. On the contrary, less components can lead to better generalization outside of the training set.
         Based on a meta-studies of many natural language processing studies utilizing LSA, there is a "island of stability" of around 300 to 500 components with 300 components being a good choice for around thousands to tens of thousands of documents and 400 for millions of documents. <span [innerHTML]="cite('Bradford')"></span>
         Thus, based on the literature, we decided to explore LSA with around 300 components, trying values from 100-500 in systematic intervals; however, the variance recovered was always relatively low (around 15 - 30%). This may be due to the fact that bag of words and TF-IDF generates datasets with such large dimensionality.
-        After performing LSA on our dataset, we analyzed the first few principal components to see which features contained the most variance in our dataset. Words such as "trump", "clinton", "senate", "house", "left", "news", and "korea" showed up frequently in the first few components after LSA, showing the political nature of our dataset.
-
+        After performing LSA on our dataset, we analyzed the first few principal components to see which features contained the most variance in our dataset. Words such as "trump", "clinton", "senate", "house", "left", "news", and "korea" showed up frequently in the first few components after LSA, showing the political nature of our dataset.<br>
+        Below are some of the results from performing LSA on our data:<br>
       </p>
+      <div fxLayout="row" fxLayoutAlign="space-around" fxFlexAlign="center" style="margin-bottom: 1em;">
+        <a href="assets/images/features-lsa.png" fxFlexAlign="center" style="margin: 0 0; width: 45%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/features-lsa.png" class="infographic"/>
+          </div>
+        </a>
+        <a href="assets/images/variance-lsa.png" fxFlexAlign="center" style="margin: 0 0; width: 45%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/variance-lsa.png" class="infographic"/>
+          </div>
+        </a>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around" fxFlexAlign="center" style="margin-bottom: 1em;">
+        <a href="assets/images/features-variance.png" fxFlexAlign="center" style="margin: 0 0; width: 45%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/features-variance.png" class="infographic"/>
+          </div>
+        </a>
+        <a href="assets/images/variance-per-feature-lsa.png" fxFlexAlign="center" style="margin: 0 0; width: 45%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/variance-per-feature-lsa.png" class="infographic"/>
+          </div>
+        </a>
+      </div>
       <p>
+        As seen in the graphs, we were able to reduce the feature-space by 99.25%, but we only saw a reduction in captured variance of 73.16%. Our average variance per feature went from 0.0000251 to 0.000895, an almost 40-fold increase!<br>
         After performing LSA, we attempted various types of clustering on our reduced dimensionality dataset.
         We tried:
       </p>
