@@ -144,20 +144,105 @@
       </div>
       <mat-card-title>Supervised Learning</mat-card-title>
       <p>
-        Since our unsupervised clustering performed poorly, we decided to take some early strides into supervised learning.
-        The supervised model works by first preprocessing the data using TF-IDF. This is done by using a Keras Preprocessing library called Token.
-        In essence, the Tokenizer takes the entire data sets of body paragraphs and creates a vocabulary of every word based on the inverse of the frequency.
-        Then, once this dictionary is generated it can tokenize any string by replacing each string with a number based on how common it was in the initial entire data set.<br>
-
-        From there we this matrix along with its labels of 0’s or 1’s into a three-layer neural net with 16 nodes each.
-        We decided to use a sigmoid function to represent the outputs since we believe grading the likelihood that a new article is fake should be continuous function rather than a discrete number being either 0 or 1.
-        We ran on 5 epochs as this was the amount of training time that maximized the validation accuracy. With this method we were able to achieve around 98.4% accuracy on the validation set.
+        Because unsupervised learning did not provide us with many useful results. This helped us realize that naïve clustering techniques cannot provide insight on such a complex dataset. Useful unsupervised learning could have been acheived through greater amounts of preprocessing, but we decided that it would be more beneficial to investigate supervised learning techniques.<br>
+        We investigated numerous techniques, which are explained in detail below. While performing these tests, we used a training-validation-testing data split. The data was split with the ratio 80-10-10. This three way split was done because validation is used during the training process to test accuracy throughout the process. However, the testing data is kept completely separate until after the model has been trained, to simulate testing the model on new data which was not available in the past.
       </p>
-      <a href="assets/images/nn-accuracy-vs-epochs.png" fxFlexAlign="center" style="margin: 1em 0;">
+      <a href="assets/images/word-cloud.png" fxFlexAlign="center" style="margin: 1em 0;">
         <div class="infographic-container mat-elevation-z2">
-          <img src="assets/images/nn-accuracy-vs-epochs.png" class="infographic"/>
+          <img src="assets/images/word-cloud.png" class="infographic" height="657" width="719" />
+          <p style="margin: 0 auto; width: fit-content;">A word cloud of the cleaned data</p>
         </div>
       </a>
+
+      <mat-card-title>Decision Tree</mat-card-title>
+      <p>
+        The first supervised learning model we tried was the decision tree. We used Gini impurity, the measure of the probability of a randomly selected element
+        from a set to be correctly labeled, to determine how much information we were gaining after each split. After training the model on our training set with
+        just default parameters, we observed 98% accuracy immediately, which made us a bit skeptical about our data. We then noticed that the initial split was on
+        the word "reuters" and after this split, the Gini measure went from 0.499 to 0.093 on the left tree and 0.024 on the right tree. This meant that the word
+        "reuters" alone was accounting for the majority of the accuracy of the performance. After studying our data more carefully, we realized that many of the
+        articles in the True dataset were taken from the Reuters news site and contained the word "reuters" in the article. To fix this problem, we just added "reuters"
+        to our list of stop words, and retrained our model on the cleaned dataset. The first word that our cleaned data splits on is "via", which we determined is
+        likely not a result of flawed data, and the Gini measure only drops from 0.499 to 0.478, a much more reasonable decrease in impurity.
+
+        We then performed a hyperparameter sweep using sklearn's GridSearchCV. The main parameters we focused on tuning were max depth, minimum samples per leaf, and minimum
+        impurity decrease. The final parameters we settled on were max depth of 37, minimum samples per leaf of 1, and minimum impurity decrease of 9.1e-07, which gave
+        us a validation accuracy of 93.47%.
+      </p>
+      <div fxLayout="row" fxLayoutAlign="space-around" fxFlexAlign="center">
+        <a href="assets/images/dt-mini.png" fxFlexAlign="center" style="margin: 1em 0; width: 20%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/dt-mini.png" class="infographic"/>
+          </div>
+        </a>
+        <a href="assets/images/dt-full.png" fxFlexAlign="center" style="margin: 1em 0; width: 73%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/dt-full.png" class="infographic"/>
+          </div>
+        </a>
+      </div>
+
+      <mat-card-title>Support Vector Machine (SVM)</mat-card-title>
+      <p>
+        After meeting moderate success with decision tree, we sought to improve on our model's performance and accuracy by looking into SVMs. With a bag of words data representation,
+        we tested using both a radial basis kernel as well as a linear kernel; however, we decided to explore with the faster running linear SVM since there was no basis for a
+        radial data representation with our bag of words data representation. <br>
+        With a linear support vector classifier, we performed a hyperparameter sweep of the regularization constant (commonly denoted as C) at varying magnitudes from 1e-18 to 1e10.
+        Based on our hyperparameter sweep we found the regularization constant C = 0.01 to give the best performance. After sweeping from 0.005 to 0.05, C = 0.01 still performed the best which became
+        our final regularization constant. With it, we were able to achieve a 99.98% training accuracy as well as a validation accuracy of 98.88%, a substantial increase in performance and classification
+        accuracy relative to our decision tree.
+      </p>
+      <a href="assets/images/svm-confusion.png" fxFlexAlign="center" style="margin: 1em 0;">
+        <div class="infographic-container mat-elevation-z2">
+          <p style="margin: 0 auto; width: fit-content;">SVM Confusion Matrix</p>
+          <img src="assets/images/svm-confusion.png" class="infographic" height="266" width="328" />
+
+        </div>
+      </a>
+      <mat-card-title>Neural Networks</mat-card-title>
+      <p>
+        We used Tensorflow and Keras to implement a feedforward neural network with three layers with 256, 32, 16 three layers respectively.
+        There was a lot of tuning regarding the hyperparameters of the layer, node, and epoch amount. We noted that increasing the amoung of layers
+        and nodes generally increased the training time of our model. However, we believed that the chosen model stated above worked the best without
+        needlessly increasing the training time. In terms of epochs, we chose to use around 12 epochs as anymore would lead to overfitting as evident
+        in the decrease in validation training set accuracy. <br> <br>
+
+        Through these optimization we were able to produce a neural net with an accuracy of 99.27% on the validation training set. We believe that
+        Neural Networks achieve high accuracy because Neural Networks excel at finding deeper patterns in a data set. While, previous techniques like
+        SVM and Decision Trees might struggle at utilizing thousands of feature, Neural Network excel with these types of problems.
+      </p>
+      <div fxLayout="row" fxLayoutAlign="space-around" fxFlexAlign="center">
+        <a href="assets/images/nn-accuracy-vs-epochs.png" fxFlexAlign="center" style="margin: 1em 0; width: 47%;">
+          <div class="infographic-container mat-elevation-z2">
+            <p style="margin: 0 auto; width: fit-content;">Accuracy by Epochs</p>
+            <img src="assets/images/nn-accuracy-vs-epochs.png" class="infographic"/>
+          </div>
+        </a>
+        <a href="assets/images/nn-confusion.png" fxFlexAlign="center" style="margin: 1em 0; width: 47%;">
+          <div class="infographic-container mat-elevation-z2">
+            <p style="margin: 0 auto; width: fit-content;">Confusion Matrix</p>
+            <img src="assets/images/nn-confusion.png" class="infographic"/>
+          </div>
+        </a>
+      </div>
+
+      <mat-card-title>RNN and CNN</mat-card-title>
+      <p>
+        CNNs showed little success with this dataset. The feature space of our articles, given a bag-of-words embedding, was 1-dimensional; however, 1-D convolutions are meant for temporal data, but the features were not temporally separated, as they are just vectorizations of articles. Our best CNN reached only about 50% accuracy.<br>
+        RNNs showed far more promise. RNNs are meant for natural language processing because they're structure makes them fit for "understanding" text. We used Long-Short-Term Memory Networks, a specific type of RNN, which can remember past inputs to influence the decisions made about future inputs. The structure of RNNs allowing one word to influence the meaning of the next word in the article helps the network detect more complex grammars. With the use of an RNN, we were able to reach over 98.4% accuracy.<br>
+      </p>
+      <div fxLayout="row" fxLayoutAlign="space-around" fxFlexAlign="center">
+        <a href="assets/images/rnn-structure.png" fxFlexAlign="center" style="margin: 1em 0; width: 32%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/rnn-structure.png" class="infographic"/>
+          </div>
+        </a>
+        <a href="assets/images/rnn-confusion.png" fxFlexAlign="center" style="margin: 1em 0; width: 60%;">
+          <div class="infographic-container mat-elevation-z2">
+            <img src="assets/images/rnn-confusion.png" class="infographic"/>
+          </div>
+        </a>
+      </div>
     </mat-card-content>
   </mat-card>
   <mat-card class="mat-elevation-z5">
@@ -179,6 +264,15 @@
         With some early strides into utilizing supervised learning, we were able to train a 3 layered dense neural network over 5 epochs to achieve an impressive accuracy of over 97%.<br>
         After the midterm, we plan on exploring more supervised learning methods such as support vector machine (SVM) and decision trees in addition to improving on our neural network model by fine tuning the hyperparameters.
         With a good accuracy, we hope to create a Google Chrome extention to give end-users easy access to the fake-news detection ability of our model as previously discussed.
+      </p>
+      <mat-card-title class="mt-2">Final Results</mat-card-title>
+      <p>
+        With supervised learning methods, we were able to achieve very impressive accuracies on our validation data set with SVMs producing over 98% accuracy and a dense feed-forward neural network
+        obtaining an accuracy of over 99%. While our models were able to generalize successfully within our dataset (from the training to the validation set), the most important evaluation of our
+        model will be to test them on real articles that are newly generated and read on a day to day basis. We realize there may be issues with our models generating to both articles outside of our
+        dataset in the case that our dataset is not well representative of the entire body of articles available on the internet in addition to issues with the style, language, and nature of articles changing over time.
+        Due to this limitation, we expect that the accuracy of our model may slowly decrease over long periods of time and would need to be retrained or continually trained as time passes.
+        Some next steps would be to test our models on larger and more comprehensive datasets to see its ability to generalize as well as testing the model on real world articles published today and in the future.
       </p>
     </mat-card-content>
   </mat-card>
@@ -208,6 +302,13 @@
       <p>
         In terms of monetary cost, we do not believe that any significant funding will be needed with our current hardware available and the relatively low cost and availability of cloud computing.
         Regarding time, we believe it will mostly depend on how long it takes us to test different models and train the model as we do not expect training the model to take that much time with current cloud computing capabilities and hardware. We are also using free, labeled datasets, so the main data-related time costs would be finding more datasets if necessary.
+      </p>
+
+      <mat-card-title class="mt-2">Flaws in Data</mat-card-title>
+      <p>
+        While performing our supervised learning, we found that all of our true articles had the word reuters in them, as that is where they were sourced from for the original dataset we used.
+        We created a "model" that was simply an if condition on the presence of the word Reuters, and acheived over 96% accuracy!
+        We fixed this issue by adding "Reuters" to the stop words of the tokenizer to make sure they wouldn't be factored into the training process.
       </p>
     </mat-card-content>
   </mat-card>
