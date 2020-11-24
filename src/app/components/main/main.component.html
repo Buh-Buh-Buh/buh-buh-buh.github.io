@@ -228,17 +228,28 @@
 
       <mat-card-title>RNN and CNN</mat-card-title>
       <p>
-        CNNs showed little success with this dataset. The feature space of our articles, given a bag-of-words embedding, was 1-dimensional; however, 1-D convolutions are meant for temporal data, but the features were not temporally separated, as they are just vectorizations of articles. Our best CNN reached only about 50% accuracy.<br>
-        RNNs showed far more promise. RNNs are meant for natural language processing because they're structure makes them fit for "understanding" text. We used Long-Short-Term Memory Networks, a specific type of RNN, which can remember past inputs to influence the decisions made about future inputs. The structure of RNNs allowing one word to influence the meaning of the next word in the article helps the network detect more complex grammars. With the use of an RNN, we were able to reach over 98.4% accuracy.<br>
+        Given the strong performance of our dense feed-forward nerual network, we had little need in to explore additional options in order to improve on our accuracy.
+        However, we did wish to explore different neural network models and structures for our own learning and experience and as such we decided to look into CNNs and RNNs. <br>
+        CNNs showed little success with this dataset. The feature space of our articles, given a bag-of-words embedding, was 1-dimensional;
+        however, 1-D convolutions are meant for temporal data, but the features were not temporally separated, as they are just vectorizations of articles.
+        Our best CNN reached only about 50% accuracy.<br>
+        RNNs showed far more promise. We looked into RNNs initially because of their various past successes in natural language processing applications.
+        The structure of RNNs, allowing one word to influence the interpretation of the next word in the article, helps the network detect more complex grammars that are lost in other bag-of-words or similar data vectorizers.
+        We explored Long-Short-Term Memory Networks (LSTMs)
+        , a specific type of RNN, that are less subject to the memory decay present in normal RNNs and can easily keep memory for long amounts of time (hence the name long short term memory networks).
+        With the use of an LSTM RNN, we were able to reach over 98.4% accuracy with only a few iterations and short amounts of testing time.<br>
       </p>
       <div fxLayout="row" fxLayoutAlign="space-around" fxFlexAlign="center">
         <a href="assets/images/rnn-structure.png" fxFlexAlign="center" style="margin: 1em 0; width: 32%;">
           <div class="infographic-container mat-elevation-z2">
+            <p style="margin: 0 auto; width: fit-content;">RNN Structure</p>
             <img src="assets/images/rnn-structure.png" class="infographic"/>
           </div>
         </a>
         <a href="assets/images/rnn-confusion.png" fxFlexAlign="center" style="margin: 1em 0; width: 60%;">
           <div class="infographic-container mat-elevation-z2">
+            <p style="margin: 0 auto; width: fit-content;">RNN Confusion Matrix</p>
+
             <img src="assets/images/rnn-confusion.png" class="infographic"/>
           </div>
         </a>
